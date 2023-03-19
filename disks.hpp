@@ -207,7 +207,7 @@ sorted_disks sort_lawnmower(const disk_state& before) {
 
   for(int i = 0; i < state.total_count() / 2; i++) { //iterate left to right
     int index = 0;
-    while (index + 1 < state.total_count() / 2) {  //sentinal to not go past n/2
+    while (index + 1 < state.total_count()) {  //sentinal to not go past n/2
       if(state.get(index) != state.get(index + 1)) {  //comparing two disks next to each other
         if(state.get(index) == DISK_DARK && state.get(index + 1) == DISK_LIGHT) { //if a dark disk is to the left of a light 
           //swap disks and increment swap counter
