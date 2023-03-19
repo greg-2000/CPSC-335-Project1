@@ -166,13 +166,13 @@ public:
 
 // Algorithm that sorts disks using the alternate algorithm.
 sorted_disks sort_alternate(const disk_state& before) {
-	int numOfSwap = 0;                                                                      //record # of step swap
+	int numOfSwap = 0;                                                                        //record # of step swap
 
   disk_state state = before;
-    for(int i = 0; i < state.total_count() + 1; i++){
-      if(i % 2 == 0){
-          for(int index = 0; index < state.total_count() - 1; index = index + 2){
-              if(state.get(index) != state.get(index +1)){
+    for(int i = 0; i < state.total_count() + 1; i++){                                       //iterate through all disks
+      if(i % 2 == 0){                                                                       //sentinel for even disks
+          for(int index = 0; index < state.total_count() - 1; index += 2){                  //iterate every other disk
+              if(state.get(index) != state.get(index + 1)){                                 //compare every other disk
                   if(state.get(index) == DISK_DARK && state.get(index + 1) == DISK_LIGHT){
                       state.swap(index);
                       numOfSwap++;
@@ -181,9 +181,9 @@ sorted_disks sort_alternate(const disk_state& before) {
           }
       }
       else{
-        for(int index = 1; index < state.total_count() - 2; index = index + 2){
+        for(int index = 1; index < state.total_count() - 2; index += 2){                    //iteration for odd disks
             if (state.get(index) != state.get(index + 1)){
-                if(state.get(index) == DISK_DARK && state.get(index+1) == DISK_LIGHT){
+                if(state.get(index) == DISK_DARK && state.get(index + 1) == DISK_LIGHT){
                     state.swap(index);
                     numOfSwap++;
                 }
@@ -205,27 +205,27 @@ sorted_disks sort_lawnmower(const disk_state& before) {
   //initialize counter
   int numOfSwap = 0;
 
-  for(int i = 0; i < state.total_count() / 2; i++) { //iterate left to right
+  for(int i = 0; i < state.total_count() / 2; i++) {                                        //iterate only to middle either side
     int index = 0;
-    while (index + 1 < state.total_count()) {  //sentinal to not go past n/2
-      if(state.get(index) != state.get(index + 1)) {  //comparing two disks next to each other
-        if(state.get(index) == DISK_DARK && state.get(index + 1) == DISK_LIGHT) { //if a dark disk is to the left of a light 
+    while (index + 1 < state.total_count()) {                                               //iterate through all disks
+      if(state.get(index) != state.get(index + 1)) {                                        //comparing left to right
+        if(state.get(index) == DISK_DARK && state.get(index + 1) == DISK_LIGHT) {           //if a dark disk is to the left of a light 
           //swap disks and increment swap counter
           state.swap(index);
           numOfSwap++;
         }
       }
-      //increment index in while loop until i+1 < n/2
+      //increment index in while loop left to right
       index++;
     }
-    while (index > 0) {
-      if(state.get(index-1) != state.get(index)) {
+    while (index > 0) {                                                                     //index is at nth element
+      if(state.get(index-1) != state.get(index)) {                                          //comparing right to left
         if(state.get(index-1) == DISK_DARK && state.get(index) == DISK_LIGHT) {
           state.swap(index - 1);
           numOfSwap++;
         }
       }
-      index--;
+      index--;                                                                              //decrement right to left
     }
   }
 
